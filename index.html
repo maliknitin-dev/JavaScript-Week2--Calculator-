@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        index.html — the STRUCTURE of the calculator
+        ------------------------------------------------
+        This file only describes WHAT is on the page:
+          • a display area (where the numbers appear)
+          • a grid of buttons (the keypad)
+        There is no maths here and no styling here.
+        The styling lives in style.css, the logic lives in script.js.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+
+    <!-- Load the stylesheet (this file is all about looks). -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============================================================
+         THE CALCULATOR card.
+         aria-label helps screen-reader software describe this block.
+         ============================================================ -->
+    <main class="calculator" aria-label="Calculator">
+
+        <!-- ---------- DISPLAY (the screen where numbers show up) ----------
+             aria-live="polite" tells screen readers to announce updates. -->
+        <section class="display" aria-live="polite">
+            <!-- Small line: shows the math that is "waiting", e.g. "5 +" -->
+            <div class="history-line" id="history-line">&nbsp;</div>
+            <!-- Big line: shows the number you are typing / the answer -->
+            <div class="main-display" id="main-display">0</div>
+        </section>
+
+        <!-- ---------- KEYPAD ----------
+             Each button uses a data-* attribute so script.js can tell
+             them apart without reading their text label:
+               data-digit="7"   → a number key
+               data-operator="/"→ a maths key ( / is used inside JS )
+               data-action="…"  → a special key (clear, backspace, ...)
+             type="button" stops the button from submitting anything. -->
+        <section class="keypad">
+
+            <!-- Row 1: utility keys + divide -->
+            <button type="button" class="key function" data-action="clear"    aria-label="Clear all">AC</button>
+            <button type="button" class="key function" data-action="backspace" aria-label="Backspace">&#9003;</button>
+            <button type="button" class="key function" data-action="percent"  aria-label="Percent">%</button>
+            <button type="button" class="key operator" data-operator="/"      aria-label="Divide">&#247;</button>
+
+            <!-- Row 2 -->
+            <button type="button" class="key digit" data-digit="7">7</button>
+            <button type="button" class="key digit" data-digit="8">8</button>
+            <button type="button" class="key digit" data-digit="9">9</button>
+            <button type="button" class="key operator" data-operator="*"      aria-label="Multiply">&#215;</button>
+
+            <!-- Row 3 -->
+            <button type="button" class="key digit" data-digit="4">4</button>
+            <button type="button" class="key digit" data-digit="5">5</button>
+            <button type="button" class="key digit" data-digit="6">6</button>
+            <button type="button" class="key operator" data-operator="-"      aria-label="Subtract">&#8722;</button>
+
+            <!-- Row 4 -->
+            <button type="button" class="key digit" data-digit="1">1</button>
+            <button type="button" class="key digit" data-digit="2">2</button>
+            <button type="button" class="key digit" data-digit="3">3</button>
+            <button type="button" class="key operator" data-operator="+"      aria-label="Add">+</button>
+
+            <!-- Row 5 -->
+            <button type="button" class="key function" data-action="sign"    aria-label="Change sign">+/&#8722;</button>
+            <button type="button" class="key digit" data-digit="0">0</button>
+            <button type="button" class="key digit" data-digit=".">.</button>
+            <button type="button" class="key equals" data-action="equals"    aria-label="Equals">=</button>
+
+        </section>
+    </main>
+
+    <!-- A small hint for the user (does not affect how the app works). -->
+    <p class="hint">Tip: the keyboard works too &mdash; try 1, 2, +, Enter!</p>
+
+    <!-- Load the logic. Scripts go at the end of <body> so the buttons
+         above already exist when the script starts looking for them. -->
+    <script src="script.js"></script>
+</body>
+</html>

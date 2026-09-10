@@ -1,0 +1,169 @@
+/* =========================================================================
+   style.css — the LOOK of the calculator
+   -------------------------------------------------------------------------
+   Plain CSS, no frameworks. This file only deals with colours, sizes,
+   spacing and layout. All the actual maths happens in script.js.
+
+   Colour scheme:
+     • digits   = dark slate grey
+     • functions (AC, backspace, %, ±) = light grey
+     • operators (÷ × − +) = amber
+     • equals   = bright orange
+   ========================================================================= */
+
+/* ---------- 1. Tiny reset ----------
+   Browsers add their own default margins/padding. This wipes those
+   defaults so every browser draws the page the same way. */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------- 2. The page ----------
+   min-height: 100vh  → the body always fills the whole screen.
+   display: flex + align/justify → centres the calculator in the middle. */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    font-family: "Segoe UI", "Helvetica Neue", Arial, system-ui, sans-serif;
+    color: #e2e8f0;
+}
+
+/* ---------- 3. The calculator card ----------
+   max-width keeps it tidy on big screens; the % width keeps it scaling
+   down on phones. The box-shadow gives it a "floating" effect. */
+.calculator {
+    width: 100%;
+    max-width: 340px;
+    padding: 20px;
+    background: #1f2937;
+    border-radius: 24px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- 4. The display (screen) ----------
+   A dark inset box at the top of the card. flex-direction: column with
+   align-items: flex-end lines the two lines of text up on the right,
+   just like a real calculator. */
+.display {
+    background: #0b1220;
+    border-radius: 14px;
+    padding: 16px 18px;
+    min-height: 92px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 18px;
+}
+
+/* The small "history" line that shows pending math, e.g. "5 +". */
+.history-line {
+    font-size: 0.95rem;
+    color: #94a3b8;   /* dimmed grey so it stays in the background */
+    min-height: 1.4em; /* keeps its height even when empty */
+}
+
+/* The big line that shows the current number / answer. */
+.main-display {
+    font-size: 2.4rem;
+    color: #f8fafc;
+    /* "tabular-nums" makes every digit the same width, so numbers
+       don't wobble as they change. */
+    font-variant-numeric: tabular-nums;
+    /* A very long answer (e.g. a division error message) wraps instead
+       of spilling out of the card. */
+    overflow-wrap: break-word;
+}
+
+/* ---------- 5. The keypad grid ----------
+   repeat(4, 1fr) = four equal-width columns; new rows are created
+   automatically as buttons are added. gap makes the spacing between
+   keys. */
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* ---------- 6. A single key (base style shared by every button) ---------- */
+.key {
+    height: 58px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    background: #334155;
+    color: #e2e8f0;
+    cursor: pointer;
+    user-select: none;       /* no text highlight when clicking fast */
+    -webkit-user-select: none;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+/* Hover (mouse over) & focus (keyboard tab over) feedback. */
+.key:hover,
+.key:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.35);
+    outline-offset: 2px;
+}
+
+/* ---------- 7. Colour-coding the three kinds of keys ---------- */
+
+/* Digit keys: dark slate grey. */
+.key.digit {
+    background: #334155;
+    color: #e2e8f0;
+}
+.key.digit:hover {
+    background: #475569;
+}
+
+/* Function keys (AC, backspace, %, ±): light grey, dark text,
+   slightly smaller font so "AC" fits nicely. */
+.key.function {
+    background: #94a3b8;
+    color: #0f172a;
+    font-size: 1.1rem;
+}
+.key.function:hover {
+    background: #a9b6c7;
+}
+
+/* Operator keys (÷ × − +): amber. */
+.key.operator {
+    background: #f59e0b;
+    color: #fff8eb;
+}
+.key.operator:hover {
+    background: #fbbf24;
+}
+
+/* Equals key: a slightly different, stronger orange so the most
+   important key stands out. */
+.key.equals {
+    background: #f97316;
+    color: #ffffff;
+}
+.key.equals:hover {
+    background: #fb923c;
+}
+
+/* The pressed state for every key (finger down / mouse click held):
+   it scales the key down slightly and darkens it for a tactile feel. */
+.key:active {
+    transform: scale(0.94);
+    filter: brightness(0.85);
+}
+
+/* ---------- 8. The small tip under the calculator ---------- */
+.hint {
+    margin-top: 18px;
+    font-size: 0.85rem;
+    color: #7d8ea6;
+    opacity: 0.9;
+}
